@@ -1,0 +1,61 @@
+name: Test Workflow
+env:
+    ECR_REPOSITORY_NAME: ecr-ingest-service-dev
+
+permissions:
+  id-token: write
+  contents: read
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+        AWS_ACCOUNT_ID:
+          description: "The AWS account ID (optional, will use secret AWS_ACCOUNT_ID if not provided)"
+          required: false
+        AWS_REGION:
+          description: "The AWS region (optional, will use secret AWS_REGION if not provided)"
+          required: false    
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set AWS_ACCOUNT_ID
+        run: |
+          if [ "${{ inputs.AWS_ACCOUNT_ID }}" ]; then
+            echo "Using provided AWS_ACCOUNT_ID: ${{ inputs.AWS_ACCOUNT_ID }}"
+            echo "::set-output name=aws_account_id::${{ inputs.AWS_ACCOUNT_ID }}"
+          else
+            echo "Using AWS_ACCOUNT_ID from secrets"
+            echo "::set-output name=aws_account_id::${{ secrets.AWS_ACCOUNT_ID }}"
+          fi
+        id: set-aws-account-id
+
+      - name: Set AWS_REGION
+        run: |
+          if [ "${{ inputs.AWS_REGION }}" ]; then
+            echo "Using provided AWS_REGION: ${{ inputs.AWS_REGION }}"
+            echo "::set-output name=aws_region::${{ inputs.AWS_REGION }}"
+          else
+            echo "Using AWS_REGION from secrets"
+            echo "::set-output name=aws_region::${{ secrets.AWS_REGION }}"
+          fi
+        id: set-aws-region
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        id: configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ steps.set-aws-region.outputs.AWS_ACCOUNT_ID }}:role/role-sonamegpt-github-actions-all
+          role-session-name: github-actions-build
+          aws-region: ${{ steps.set-aws-region.outputs.AWS_REGION }}
+
+      - name: List S3 Buckets
+        run: |
+          aws s3 ls
