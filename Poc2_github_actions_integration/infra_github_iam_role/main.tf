@@ -37,9 +37,9 @@ resource "aws_iam_role" "github_actions_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "s3_readonly_attachment" {
+resource "aws_iam_role_policy_attachment" "s3_full_attachment" {
   role       = aws_iam_role.github_actions_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
 }
 
 resource "aws_iam_policy" "ecr_access_policy" {

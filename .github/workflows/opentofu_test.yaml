@@ -20,6 +20,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Configure AWS Credentials
+        id: configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.aws_account_id }}:role/role-opentofutest-github-actions-all
+          role-session-name: github-actions-build
+          aws-region: ${{ secrets.aws_region }}  
+
       - name: Set Up OpenTofu
         uses: opentofu/setup-opentofu@v1
         # with:
