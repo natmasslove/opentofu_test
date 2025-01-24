@@ -1,7 +1,6 @@
 name: OpenTofu Test Deployment
 
 on:
-  push:
   workflow_dispatch:
 
 permissions:
