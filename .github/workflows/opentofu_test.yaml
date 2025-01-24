@@ -7,6 +7,10 @@ permissions:
   id-token: write
   contents: read
 
+env:
+    INFRA_FOLDER_NAME: "Poc2_github_actions_integration/infra"  
+    DEPLOYMENT_CONFIG_NAME: "dev2"
+
 jobs:
   deploy:
     name: Deploy Infrastructure with OpenTofu
@@ -21,9 +25,10 @@ jobs:
         # with:
         #   tofu_version: '1.9.0'  # Specify the desired OpenTofu version
 
-    #   - name: Initialize OpenTofu
-    #     run: |
-    #       tofu init
+      - name: Initialize OpenTofu
+        run: |
+          cd ${{ env.INFRA_FOLDER_NAME }}
+          tofu init -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -reconfigure
 
     #   - name: Plan Infrastructure Changes
     #     run: |
