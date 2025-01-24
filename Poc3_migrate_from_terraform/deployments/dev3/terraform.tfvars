@@ -1,2 +1,2 @@
 stage             = "dev3"
-parameter_content = "migration test"
+parameter_content = "migration test - modified"

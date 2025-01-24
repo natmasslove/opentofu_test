@@ -2,8 +2,8 @@
 terraform {
   backend "s3" {
     bucket = "s3-opentofu-test-20250122"
-    key    = "${var.stage}_tf/terraform.tfstate"
-    region = var.aws_region
+    key    = "dev3_tf/terraform.tfstate"
+    region = "eu-central-1"
   }
 }
 

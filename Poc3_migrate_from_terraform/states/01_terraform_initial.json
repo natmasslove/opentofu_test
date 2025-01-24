@@ -1,0 +1,47 @@
+{
+  "version": 4,
+  "terraform_version": "1.9.8",
+  "serial": 1,
+  "lineage": "4a3e78bf-ef4a-e8a6-4f7c-7d2cab86e90b",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "test_param",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allowed_pattern": "",
+            "arn": "arn:aws:ssm:eu-central-1:111:parameter/param-tofutest-simple-dev3",
+            "data_type": "text",
+            "description": "test2",
+            "id": "param-tofutest-simple-dev3",
+            "insecure_value": null,
+            "key_id": "",
+            "name": "param-tofutest-simple-dev3",
+            "overwrite": null,
+            "tags": null,
+            "tags_all": {},
+            "tier": "Standard",
+            "type": "String",
+            "value": "migration test",
+            "version": 1
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "value"
+              }
+            ]
+          ],
+          "private": "bnVsbA=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
