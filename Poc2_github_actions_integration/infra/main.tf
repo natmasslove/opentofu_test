@@ -16,10 +16,3 @@ resource "aws_ssm_parameter" "test_param" {
   type        = "String"
   value       = var.parameter_content
 }
-
-resource "aws_ssm_parameter" "test_param2" {
-  name        = "param-${var.project}-simple2-${var.stage}"
-  description = "test3"
-  type        = "String"
-  value       = var.parameter_content
-}
