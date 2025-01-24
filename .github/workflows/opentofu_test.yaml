@@ -38,11 +38,10 @@ jobs:
           cd ${{ env.INFRA_FOLDER_NAME }}
           tofu init -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -reconfigure
 
-    #   - name: Plan Infrastructure Changes
-    #     run: |
-    #       tofu plan -out=tfplan
+      - name: Plan Infrastructure Changes
+        run: |
+          tofu plan -out=tfplan
 
-    #   - name: Apply Infrastructure Changes
-    #     if: github.ref == 'refs/heads/main'
-    #     run: |
-    #       tofu apply -auto-approve tfplan
+      - name: Apply Infrastructure Changes
+        run: |
+          tofu apply -auto-approve tfplan
