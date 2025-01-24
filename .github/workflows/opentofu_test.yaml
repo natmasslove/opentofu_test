@@ -40,8 +40,8 @@ jobs:
 
       - name: Plan Infrastructure Changes
         run: |
-          tofu plan -out=tfplan
+          tofu plan -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -out=tfplan
 
       - name: Apply Infrastructure Changes
         run: |
-          tofu apply -auto-approve tfplan
+          tofu apply -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -auto-approve tfplan
