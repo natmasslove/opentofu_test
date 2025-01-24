@@ -52,7 +52,7 @@ jobs:
         id: configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ env.aws_account_id }}:role/role-sonamegpt-github-actions-all
+          role-to-assume: arn:aws:iam::${{ env.aws_account_id }}:role/role-opentofutest-github-actions-all
           role-session-name: github-actions-build
           aws-region: ${{ env.aws_region }}
 
