@@ -40,8 +40,10 @@ jobs:
 
       - name: Plan Infrastructure Changes
         run: |
+          cd ${{ env.INFRA_FOLDER_NAME }}
           tofu plan -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -out=tfplan
 
       - name: Apply Infrastructure Changes
         run: |
+          cd ${{ env.INFRA_FOLDER_NAME }}
           tofu apply -var-file="../deployments/${{ env.DEPLOYMENT_CONFIG_NAME }}/terraform.tfvars" -auto-approve tfplan
