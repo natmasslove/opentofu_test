@@ -1,0 +1,36 @@
+name: OpenTofu Test Deployment
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy Infrastructure with OpenTofu
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        # with:
+        #   tofu_version: '1.9.0'  # Specify the desired OpenTofu version
+
+    #   - name: Initialize OpenTofu
+    #     run: |
+    #       tofu init
+
+    #   - name: Plan Infrastructure Changes
+    #     run: |
+    #       tofu plan -out=tfplan
+
+    #   - name: Apply Infrastructure Changes
+    #     if: github.ref == 'refs/heads/main'
+    #     run: |
+    #       tofu apply -auto-approve tfplan
